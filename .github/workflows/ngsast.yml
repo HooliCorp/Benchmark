@@ -26,7 +26,7 @@ jobs:
     - name: Build and Analyze on stage
       run: |
           mvn compile package
-          ${GITHUB_WORKSPACE}/sl analyze --wait --app benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
+          ${GITHUB_WORKSPACE}/sl analyze --wait --app owasp-benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
@@ -37,7 +37,7 @@ jobs:
         cd field-integrations/shiftleft-utils
         mkdir -p ${GITHUB_WORKSPACE}/ngsast_results
         pip3 install -r requirements.txt
-        python3 export.py --app benchmark -f sl -o ${GITHUB_WORKSPACE}/ngsast_results/Benchmark_1.2-ShiftLeft.sl
+        python3 export.py --app owasp-benchmark -f sl -o ${GITHUB_WORKSPACE}/ngsast_results/Benchmark_1.2-ShiftLeft.sl
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
