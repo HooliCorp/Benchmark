@@ -35,6 +35,7 @@ jobs:
         git clone https://github.com/ShiftLeftSecurity/field-integrations.git
         cd field-integrations/shiftleft-utils
         mkdir -p ${GITHUB_WORKSPACE}/ngsast_results
+        pip3 install -r requirements.txt
         python3 export.py --app benchmark -f sl -o ${GITHUB_WORKSPACE}/ngsast_results/Benchmark_1.2-ShiftLeft.sl
     - name: Run benchmark
       run: |
