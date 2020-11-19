@@ -28,9 +28,8 @@ jobs:
           mvn compile package
           ${GITHUB_WORKSPACE}/sl analyze --wait --app benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
       env:
-        SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_STG_ACCESS_TOKEN }}
-        SHIFTLEFT_API_HOST: www-ext.stg.shiftleft.io
-        SHIFTLEFT_GRPC_API_HOST: api-ext.stg.shiftleft.io:443
+        SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
+        SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
     - name: Export findings
       run: |
         cd $HOME
@@ -39,6 +38,9 @@ jobs:
         mkdir -p ${GITHUB_WORKSPACE}/ngsast_results
         pip3 install -r requirements.txt
         python3 export.py --app benchmark -f sl -o ${GITHUB_WORKSPACE}/ngsast_results/Benchmark_1.2-ShiftLeft.sl
+      env:
+        SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
+        SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
     - name: Run benchmark
       run: |
         cd ${GITHUB_WORKSPACE}
