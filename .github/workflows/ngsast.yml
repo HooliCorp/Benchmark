@@ -29,7 +29,6 @@ jobs:
           ${GITHUB_WORKSPACE}/sl analyze --force --wait --app owasp-benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
-        SL_CPG_OPTS: "-J-Xms2g -J-Xmx7g"
     - name: Export findings
       run: |
         cd $HOME
