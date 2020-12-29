@@ -23,7 +23,7 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
-    - name: Build and Analyze on stage
+    - name: Build and Analyze
       run: |
           mvn compile package
           ${GITHUB_WORKSPACE}/sl analyze --force --wait --app owasp-benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
