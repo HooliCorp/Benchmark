@@ -26,7 +26,7 @@ jobs:
     - name: Build and Analyze
       run: |
           mvn compile package
-          ${GITHUB_WORKSPACE}/sl analyze --force --wait --app owasp-benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
+          ${GITHUB_WORKSPACE}/sl analyze --force --wait --verbose --app owasp-benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
     - name: Export findings
